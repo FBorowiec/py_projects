@@ -50,4 +50,5 @@ class MapCreator:
         for arg in args:
             map.add_child(arg)
 
+        map.add_child(folium.LayerControl())
         map.save(path.join(path.expanduser(output_path), "heatmap.html"))
