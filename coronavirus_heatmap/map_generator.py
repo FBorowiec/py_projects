@@ -1,8 +1,13 @@
 import folium
+import numpy as np
 from os import path
 
 
 class MapCreator:
+    def circle_size(self, number_of_cases, factor=5):
+        size = int(np.power(np.log(number_of_cases), 2) / factor)
+        return size
+
     def create_feature_group(self, coronavirus_data, name, color):
         fg = folium.FeatureGroup(name=name)
         for province in coronavirus_data["data"]:
@@ -10,26 +15,30 @@ class MapCreator:
                 province["location"]
                 + ", "
                 + province["country_code"].upper()
-                + "\n"
+                + ",\n"
                 + "Confirmed cases: "
                 + str(province["confirmed"])
-                + "\n"
+                + ",\n"
                 + "Recovered: "
                 + str(province["recovered"])
-                + "\n"
+                + ",\n"
                 + "Dead: "
                 + str(province["dead"])
             )
-            fg.add_child(
-                folium.Marker(
-                    location=[
-                        float(province["latitude"]),
-                        float(province["longitude"]),
-                    ],
-                    popup=popup,
-                    icon=folium.Icon(color=color),
+            if province["confirmed"] > 0:
+                fg.add_child(
+                    folium.CircleMarker(
+                        location=[
+                            float(province["latitude"]),
+                            float(province["longitude"]),
+                        ],
+                        radius=self.circle_size(province["confirmed"]),
+                        popup=popup,
+                        fill_color=color,
+                        color="grey",
+                        fill_opacity=0.7,
+                    )
                 )
-            )
 
         return fg
 

@@ -18,7 +18,7 @@ if __name__ == "__main__":
         coronavirus_province_data, name="Coronavirus province data", color="blue"
     )
     fg3 = mc.create_feature_group(
-        coronavirus_cities_data, name="Coronavirus cities data", color="green"
+        coronavirus_cities_data, name="Coronavirus cities data", color="orange"
     )
 
     mc.generate_map(parser.output_path, fg1, fg2, fg3)
