@@ -1,1 +1,2 @@
 mysql-connector>=2.2.9
+folium>=0.11.0
