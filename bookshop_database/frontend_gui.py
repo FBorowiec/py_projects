@@ -46,30 +46,33 @@ class Window:
         self.e4.grid(row=1, column=3)
 
     def add_list_with_scrollbar(self):
-        self.list1 = Listbox(self.window, height=6, width=35)
-        self.list1.grid(row=2, column=0, rowspan=6, columnspan=2)
+        self.book_list = Listbox(self.window, height=6, width=35)
+        self.book_list.grid(row=2, column=0, rowspan=6, columnspan=2)
 
         sb1 = Scrollbar(self.window)
         sb1.grid(row=2, column=2, rowspan=6)
 
-        self.list1.configure(yscrollcommand=sb1.set)
-        sb1.configure(command=self.list1.yview())
+        self.book_list.configure(yscrollcommand=sb1.set)
+        sb1.configure(command=self.book_list.yview())
 
-        self.list1.bind("<<ListboxSelect>>", self.get_selected_row)
+        self.book_list.bind("<<ListboxSelect>>", self.get_selected_row)
 
     def get_selected_row(self, event):
-        index = self.list1.curselection()
-        global selected_tuple
-        selected_tuple = self.list1.get(index)
+        try:
+            index = self.book_list.curselection()
+            self.selected_tuple = self.book_list.get(index)
 
-        self.e1.delete(0, END)
-        self.e1.insert(END, selected_tuple[1])
-        self.e2.delete(0, END)
-        self.e2.insert(END, selected_tuple[2])
-        self.e3.delete(0, END)
-        self.e3.insert(END, selected_tuple[3])
-        self.e4.delete(0, END)
-        self.e4.insert(END, selected_tuple[4])
+            self.e1.delete(0, END)
+            self.e1.insert(END, self.selected_tuple[1])
+            self.e2.delete(0, END)
+            self.e2.insert(END, self.selected_tuple[2])
+            self.e3.delete(0, END)
+            self.e3.insert(END, self.selected_tuple[3])
+            self.e4.delete(0, END)
+            self.e4.insert(END, self.selected_tuple[4])
+
+        except:
+            pass
 
     def add_buttons(self):
         b1 = Button(self.window, text="View all", width=12, command=self.view_command)
@@ -97,12 +100,12 @@ class Window:
         b6.grid(row=7, column=3)
 
     def clear_list(self):
-        self.list1.delete(0, END)
+        self.book_list.delete(0, END)
 
     def view_command(self):
         self.clear_list()
         for row in self.db.view():
-            self.list1.insert(END, row)
+            self.book_list.insert(END, row)
 
     def search_command(self):
         self.clear_list()
@@ -112,7 +115,7 @@ class Window:
             self.year_text.get(),
             self.isbn_text.get(),
         ):
-            self.list1.insert(END, row)
+            self.book_list.insert(END, row)
 
     def add_command(self):
         self.db.insert(
@@ -122,7 +125,7 @@ class Window:
             self.isbn_text.get(),
         )
         self.clear_list()
-        self.list1.insert(
+        self.book_list.insert(
             END,
             (
                 self.title_text.get(),
@@ -133,14 +136,15 @@ class Window:
         )
 
     def delete_command(self):
-        self.db.delete(selected_tuple[0])
+        self.db.delete(self.selected_tuple[0])
         self.view_command()
 
     def update_command(self):
         self.db.update(
-            selected_tuple[0],
+            self.selected_tuple[0],
             self.title_text.get(),
             self.author_text.get(),
             self.year_text.get(),
             self.isbn_text.get(),
         )
+        self.view_command()
