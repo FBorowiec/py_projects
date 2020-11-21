@@ -134,6 +134,7 @@ class Window:
                 self.isbn_text.get(),
             ),
         )
+        self.view_command()
 
     def delete_command(self):
         self.db.delete(self.selected_tuple[0])
