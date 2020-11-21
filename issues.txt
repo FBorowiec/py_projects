@@ -1,0 +1,2 @@
+tkinter and postgresql not installed by bazel but apt pkg manager
+libpq-dev installed via apt for psychopg2
