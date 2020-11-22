@@ -14,8 +14,12 @@ py_binary(
 
 py_binary(
     name = "financial_data_visualization",
-    srcs = ["financial_data_visualization.py"],
-    data = ["AMZN.json"],
+    srcs = [
+        "data_parser.py",
+        "data_visualizer.py",
+        "financial_data_visualization.py",
+        "request_handler.py",
+        ],
     main = "financial_data_visualization.py",
     deps = [
         requirement("bokeh"),
