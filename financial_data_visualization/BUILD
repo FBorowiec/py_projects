@@ -26,3 +26,24 @@ py_binary(
         requirement("pandas"),
     ],
 )
+
+py_binary(
+    name = "financial_data_visualization_local",
+    srcs = [
+        "data_parser.py",
+        "data_visualizer.py",
+        "financial_data_visualization_local.py",
+        "request_handler.py",
+        ],
+    data = [
+        "AMZN.json",
+        "GOOG.json",
+        "MSFT.json",
+        "AAPL.json",
+        ],
+    main = "financial_data_visualization_local.py",
+    deps = [
+        requirement("bokeh"),
+        requirement("pandas"),
+    ],
+)
