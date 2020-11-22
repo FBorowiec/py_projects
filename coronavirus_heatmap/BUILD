@@ -4,14 +4,14 @@ load("@py_projects_deps//:requirements.bzl", "requirement")
 py_library(
     name = "coronavirus_heatmap_lib",
     srcs = [
-        "request_handler.py",
+        "map_generator.py",
         "parser.py",
-        "map_generator.py"
-        ],
+        "request_handler.py",
+    ],
     deps = [
         requirement("folium"),
         requirement("pandas"),
-        ],
+    ],
 )
 
 py_binary(

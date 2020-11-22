@@ -23,5 +23,6 @@ py_binary(
     main = "webcam_motion_detector.py",
     deps = [
         requirement("opencv-python"),
+        requirement("pandas"),
     ],
 )

@@ -4,8 +4,8 @@ py_binary(
     name = "english_thesaurus",
     srcs = [
         "english_thesaurus.py",
-        "main.py"
-        ],
-    main = "main.py",
+        "main.py",
+    ],
     data = ["data.json"],
+    main = "main.py",
 )
