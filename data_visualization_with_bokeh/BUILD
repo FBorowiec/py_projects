@@ -9,5 +9,6 @@ py_binary(
     deps = [
         requirement("bokeh"),
         requirement("pandas"),
+        requirement("xlrd"),
     ],
 )
