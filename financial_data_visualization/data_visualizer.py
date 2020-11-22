@@ -7,18 +7,10 @@ from bokeh.layouts import column
 class DataVisualizer:
     def __init__(self, data):
         self.data = data
-        self.__setup_figure__()
         self.output_file = output_file("AAPL, AMZN, GOOG, MSFT closing rates")
 
     def __setup_figure__(self):
-        self.f = figure(width=800, height=800, x_axis_type="datetime")
-        self.f.title.text = "AAPL, AMZN, GOOG, MSFT"
-        self.f.title.text_font = "arial"
-        self.f.title.text_font_style = "bold"
-        self.f.xaxis.minor_tick_line_color = None
-        self.f.yaxis.minor_tick_line_color = None
-        self.f.xaxis.axis_label = "Daily data over a 3 months period"
-        self.f.yaxis.axis_label = "Closing Value [USD]"
+        self.f = figure(sizing_mode="stretch_both", x_axis_type="datetime")
 
     def plot_data(self):
         names = ("AAPL", "AMZN", "GOOG", "MSFT")
@@ -32,11 +24,20 @@ class DataVisualizer:
             TOOLS = "pan,wheel_zoom,box_zoom,reset,save"
 
             s = figure(
+                sizing_mode="stretch_both",
                 x_axis_type="datetime",
                 tools=TOOLS,
                 plot_width=1800,
                 title=name + " Candlestick",
             )
+            s.title.text = name
+            s.title.text_font = "arial"
+            s.title.text_font_style = "bold"
+            s.xaxis.minor_tick_line_color = None
+            s.yaxis.minor_tick_line_color = None
+            s.xaxis.axis_label = "Daily data over a 3 months period"
+            s.yaxis.axis_label = "Closing Value [USD]"
+
             s.xaxis.major_label_orientation = pi / 4.0
             s.grid.grid_line_alpha = 0.3
 

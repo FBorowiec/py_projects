@@ -46,6 +46,7 @@ class MotionDetector:
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
             self.motion_list.append(motion)
+            self.motion_list = self.motion_list[-2:]
 
             if self.motion_list[-1] == True and self.motion_list[-2] == False:
                 self.times.append(datetime.now())
