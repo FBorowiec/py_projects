@@ -4,6 +4,7 @@ load("@py_projects_deps//:requirements.bzl", "requirement")
 py_binary(
     name = "database_webapp",
     srcs = [
+        "email_sender.py",
         "main.py",
     ],
     data = glob([
@@ -18,5 +19,7 @@ py_binary(
     main = "main.py",
     deps = [
         requirement("flask"),
+        requirement("Flask-SQLAlchemy"),
+        requirement("psycopg2"),
     ],
 )
