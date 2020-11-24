@@ -2,6 +2,8 @@ from math import pi
 from bokeh.plotting import figure
 from bokeh.io import output_file, show
 from bokeh.layouts import column
+from bokeh.embed import components
+from bokeh.resources import CDN
 
 
 class DataVisualizer:
@@ -67,6 +69,13 @@ class DataVisualizer:
 
             plots.append(s)
 
-        p = column(plots[0], plots[1], plots[2], plots[3])
+        self.p = column(plots[0], plots[1], plots[2], plots[3])
 
-        show(p)
+        show(self.p)
+
+    def generate_javascript_plot(self):
+        script, div = components(self.p)
+        cdn_js = CDN.js_files
+        cdn_css = CDN.css_files
+
+        return script, div, cdn_js[0], cdn_css[0]
