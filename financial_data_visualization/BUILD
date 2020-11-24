@@ -19,7 +19,7 @@ py_binary(
         "data_visualizer.py",
         "financial_data_visualization.py",
         "request_handler.py",
-        ],
+    ],
     main = "financial_data_visualization.py",
     deps = [
         requirement("bokeh"),
@@ -34,13 +34,13 @@ py_binary(
         "data_visualizer.py",
         "financial_data_visualization_local.py",
         "request_handler.py",
-        ],
+    ],
     data = [
+        "AAPL.json",
         "AMZN.json",
         "GOOG.json",
         "MSFT.json",
-        "AAPL.json",
-        ],
+    ],
     main = "financial_data_visualization_local.py",
     deps = [
         requirement("bokeh"),
