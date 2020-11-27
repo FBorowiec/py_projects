@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from email_sender import EmailSender
-
+from sqlalchemy.sql import func
 
 app = Flask(__name__)
 app.config[
@@ -32,13 +32,19 @@ def input():
         email = request.form["email_name"]
         height = request.form["height_name"]
 
-        es = EmailSender(email, height)
-
         if db.session.query(Data).filter(Data.email_ == email).count() == 0:
             data = Data(email, height)
             db.session.add(data)
             db.session.commit()
+
+            average_height = round(db.session.query(func.avg(data.height_)).scalar())
+            count = db.sessions.query(Data.heigh_).count()
+
+            es = EmailSender(email, height, average_height, count)
+            es.send_email()
+
             return render_template("input.html")
+
         return render_template(
             "index.html", text="Your email address is already stored!"
         )
